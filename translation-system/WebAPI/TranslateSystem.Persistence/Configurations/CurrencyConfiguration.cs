@@ -14,7 +14,8 @@ namespace TranslateSystem.Persistence.Configurations
             
             builder.Property(p => p.Id).HasColumnName("id");
             builder.Property(p => p.CurrencyType)
-                   .HasConversion(v => v.ToString(), v => (CurrencyType)Enum.Parse(typeof(CurrencyType), v))
+                   .HasConversion(v => v.ToString(), 
+                                  v => (CurrencyType)Enum.Parse(typeof(CurrencyType), v))
                    .HasColumnName("currency_type");
             builder.Property(p => p.LastUpdate).HasColumnName("last_update");
         }

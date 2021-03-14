@@ -17,11 +17,13 @@ namespace TranslateSystem.Persistence.Configurations
             builder.Property(p => p.DestinationUserId).HasColumnName("destination_id");
 
             builder.Property(p => p.SourceCurrencyType)
-                   .HasConversion(v => v.ToString(), v => (CurrencyType)Enum.Parse(typeof(CurrencyType), v))
+                   .HasConversion(v => v.ToString(), 
+                                  v => (CurrencyType)Enum.Parse(typeof(CurrencyType), v))
                    .HasColumnName("source_currency");
 
             builder.Property(p => p.DestinationCurrencyType)
-                   .HasConversion(v => v.ToString(), v => (CurrencyType)Enum.Parse(typeof(CurrencyType), v))
+                   .HasConversion(v => v.ToString(), 
+                                  v => (CurrencyType)Enum.Parse(typeof(CurrencyType), v))
                    .HasColumnName("destination_currency");
 
             builder.Property(p => p.AmountTransaction).HasColumnName("amount_transaction");

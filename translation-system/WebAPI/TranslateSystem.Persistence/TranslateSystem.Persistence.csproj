@@ -5,11 +5,11 @@
     </PropertyGroup>
 
     <ItemGroup>
-      <PackageReference Include="Microsoft.EntityFrameworkCore.Relational" Version="5.0.0" />
+      <Folder Include="Settings" />
     </ItemGroup>
 
     <ItemGroup>
-      <Folder Include="Settings" />
+      <PackageReference Include="Microsoft.EntityFrameworkCore.Relational" Version="5.0.0" />
     </ItemGroup>
 
     <ItemGroup>
