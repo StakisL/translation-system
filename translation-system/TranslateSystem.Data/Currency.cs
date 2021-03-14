@@ -1,11 +1,8 @@
 ﻿namespace TranslateSystem.Data
 {
-    public enum Currency
+    public class CurrencyExchangeRate
     {
-        EUR, 
-        USD, 
-        GPB, 
-        RUB, 
-        BTC
+        public Currency CurrencyType { get; set;}
+        public double Ratio { get; set; }
     }
 }
