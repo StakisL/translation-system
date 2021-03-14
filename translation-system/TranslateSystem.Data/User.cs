@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace TranslateSystem.Data
 {
@@ -13,5 +14,7 @@ namespace TranslateSystem.Data
         public string Password { get; set; }
 
         public AccountData AccountData { get; set; }
+
+        public ICollection<TransferData> Transfers { get; set; }
     }
 }

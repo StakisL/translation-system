@@ -17,7 +17,10 @@ namespace TranslateSystem.Persistence.Configurations
             //todo Посмотреть как правильно хранят пароли в базе и хранят ли вообще!?
             builder.Property(p => p.Password).HasColumnName("password");
             
-            builder.HasOne(p => p.AccountData).WithOne();
+            builder.HasOne(p => p.AccountData)
+                   .WithOne(ad => ad.User)
+                   .HasForeignKey<AccountData>(ad => ad.UserId);
+
             builder.HasIndex(p => p.Email).IsUnique();
         }
     }

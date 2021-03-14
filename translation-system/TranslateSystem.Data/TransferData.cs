@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace TranslateSystem.Data
+﻿namespace TranslateSystem.Data
 {
     public class TransferData
     {
