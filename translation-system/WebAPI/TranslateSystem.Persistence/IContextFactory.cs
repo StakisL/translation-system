@@ -1,7 +1,7 @@
 ﻿namespace TranslateSystem.Persistence
 {
-    public class IContextFactory
+    public interface IContextFactory
     {
-        
+        ApplicationContext CreateContext();
     }
 }

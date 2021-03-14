@@ -2,7 +2,7 @@
 
 namespace TranslateSystem.Data
 {
-    public class Operation
+    public class TransferData
     {
         public int Id { get; set; }
         

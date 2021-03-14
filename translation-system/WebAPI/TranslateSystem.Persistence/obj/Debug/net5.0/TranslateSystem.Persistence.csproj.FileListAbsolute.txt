@@ -1,0 +1,15 @@
+C:\Users\Stanislav\Desktop\translation-system\translation-system\WebAPI\TranslateSystem.Persistence\bin\Debug\net5.0\TranslateSystem.Persistence.deps.json
+C:\Users\Stanislav\Desktop\translation-system\translation-system\WebAPI\TranslateSystem.Persistence\bin\Debug\net5.0\TranslateSystem.Persistence.dll
+C:\Users\Stanislav\Desktop\translation-system\translation-system\WebAPI\TranslateSystem.Persistence\bin\Debug\net5.0\ref\TranslateSystem.Persistence.dll
+C:\Users\Stanislav\Desktop\translation-system\translation-system\WebAPI\TranslateSystem.Persistence\bin\Debug\net5.0\TranslateSystem.Persistence.pdb
+C:\Users\Stanislav\Desktop\translation-system\translation-system\WebAPI\TranslateSystem.Persistence\bin\Debug\net5.0\TranslateSystem.Data.dll
+C:\Users\Stanislav\Desktop\translation-system\translation-system\WebAPI\TranslateSystem.Persistence\bin\Debug\net5.0\TranslateSystem.Data.pdb
+C:\Users\Stanislav\Desktop\translation-system\translation-system\WebAPI\TranslateSystem.Persistence\obj\Debug\net5.0\TranslateSystem.Persistence.csprojAssemblyReference.cache
+C:\Users\Stanislav\Desktop\translation-system\translation-system\WebAPI\TranslateSystem.Persistence\obj\Debug\net5.0\TranslateSystem.Persistence.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Stanislav\Desktop\translation-system\translation-system\WebAPI\TranslateSystem.Persistence\obj\Debug\net5.0\TranslateSystem.Persistence.AssemblyInfoInputs.cache
+C:\Users\Stanislav\Desktop\translation-system\translation-system\WebAPI\TranslateSystem.Persistence\obj\Debug\net5.0\TranslateSystem.Persistence.AssemblyInfo.cs
+C:\Users\Stanislav\Desktop\translation-system\translation-system\WebAPI\TranslateSystem.Persistence\obj\Debug\net5.0\TranslateSystem.Persistence.csproj.CoreCompileInputs.cache
+C:\Users\Stanislav\Desktop\translation-system\translation-system\WebAPI\TranslateSystem.Persistence\obj\Debug\net5.0\TranslateSystem.Persistence.csproj.CopyComplete
+C:\Users\Stanislav\Desktop\translation-system\translation-system\WebAPI\TranslateSystem.Persistence\obj\Debug\net5.0\TranslateSystem.Persistence.dll
+C:\Users\Stanislav\Desktop\translation-system\translation-system\WebAPI\TranslateSystem.Persistence\obj\Debug\net5.0\ref\TranslateSystem.Persistence.dll
+C:\Users\Stanislav\Desktop\translation-system\translation-system\WebAPI\TranslateSystem.Persistence\obj\Debug\net5.0\TranslateSystem.Persistence.pdb

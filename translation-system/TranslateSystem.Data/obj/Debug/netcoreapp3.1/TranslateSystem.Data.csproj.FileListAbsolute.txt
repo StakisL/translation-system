@@ -1,0 +1,9 @@
+C:\Users\Stanislav\Desktop\translation-system\translation-system\TranslateSystem.Data\bin\Debug\netcoreapp3.1\TranslateSystem.Data.deps.json
+C:\Users\Stanislav\Desktop\translation-system\translation-system\TranslateSystem.Data\bin\Debug\netcoreapp3.1\TranslateSystem.Data.dll
+C:\Users\Stanislav\Desktop\translation-system\translation-system\TranslateSystem.Data\bin\Debug\netcoreapp3.1\TranslateSystem.Data.pdb
+C:\Users\Stanislav\Desktop\translation-system\translation-system\TranslateSystem.Data\obj\Debug\netcoreapp3.1\TranslateSystem.Data.csprojAssemblyReference.cache
+C:\Users\Stanislav\Desktop\translation-system\translation-system\TranslateSystem.Data\obj\Debug\netcoreapp3.1\TranslateSystem.Data.AssemblyInfoInputs.cache
+C:\Users\Stanislav\Desktop\translation-system\translation-system\TranslateSystem.Data\obj\Debug\netcoreapp3.1\TranslateSystem.Data.AssemblyInfo.cs
+C:\Users\Stanislav\Desktop\translation-system\translation-system\TranslateSystem.Data\obj\Debug\netcoreapp3.1\TranslateSystem.Data.csproj.CoreCompileInputs.cache
+C:\Users\Stanislav\Desktop\translation-system\translation-system\TranslateSystem.Data\obj\Debug\netcoreapp3.1\TranslateSystem.Data.dll
+C:\Users\Stanislav\Desktop\translation-system\translation-system\TranslateSystem.Data\obj\Debug\netcoreapp3.1\TranslateSystem.Data.pdb

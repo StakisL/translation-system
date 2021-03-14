@@ -1,9 +1,13 @@
-﻿namespace TranslateSystem.Data
+﻿using System;
+
+namespace TranslateSystem.Data
 {
-    public class AccountInformation
+    public class AccountData
     {
-        public int UserId { get; set; }
+        public int Id { get; set; }
+        
         public int Balance { get; set; }
-        public Currency CurrencyType { get; set; }
+        
+        public CurrencyType CurrencyType { get; set; }
     }
 }
