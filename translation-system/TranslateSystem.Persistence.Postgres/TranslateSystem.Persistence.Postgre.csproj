@@ -16,8 +16,4 @@
     <ProjectReference Include="..\WebAPI\TranslateSystem.Persistence\TranslateSystem.Persistence.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Migrations\" />
-  </ItemGroup>
-
 </Project>

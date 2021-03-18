@@ -10,4 +10,10 @@
     <PackageReference Include="Swashbuckle.AspNetCore" Version="5.6.3" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\..\TranslateSystem.Data\TranslateSystem.Data.csproj" />
+    <ProjectReference Include="..\..\TranslateSystem.Persistence.Postgres\TranslateSystem.Persistence.Postgre.csproj" />
+    <ProjectReference Include="..\TranslateSystem.Persistence\TranslateSystem.Persistence.csproj" />
+  </ItemGroup>
+
 </Project>

@@ -26,6 +26,9 @@ namespace TranslateSystem.Persistence.Configurations
                                   v => (CurrencyType)Enum.Parse(typeof(CurrencyType), v))
                    .HasColumnName("destination_currency");
 
+            builder.Property(p => p.Date).HasColumnName("date");
+            builder.Property(p => p.IsCancelled).HasColumnName("is_cancelled");
+
             builder.Property(p => p.AmountTransaction).HasColumnName("amount_transaction");
         }
     }

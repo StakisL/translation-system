@@ -15,9 +15,6 @@ namespace TranslateSystem.Persistence.Configurations
             builder.Property(p => p.UserId).HasColumnName("user_id");
             builder.Property(p => p.CurrencyId).HasColumnName("currency_id");
             builder.Property(p => p.Balance).HasColumnName("balance");
-
-            builder.HasOne<Currency>().WithOne("id").HasForeignKey("currency_id");
-            builder.HasOne<User>().WithOne("id").HasForeignKey("user_id");
         }
     }
 }

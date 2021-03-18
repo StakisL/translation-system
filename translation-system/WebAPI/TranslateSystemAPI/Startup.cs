@@ -1,16 +1,14 @@
+using System.Linq;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
-using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+using TranslateSystem.Persistence;
+using TranslateSystem.Persistence.Postgre;
+using TranslateSystem.Persistence.Settings;
 
 namespace TranslateSystemAPI
 {
@@ -28,6 +26,10 @@ namespace TranslateSystemAPI
         {
 
             services.AddControllers();
+            services.AddSingleton<IContextFactory, PostgreSqlContextFactory>();
+            services.AddSingleton<IConnectionProvider, BasicConnectionProvider>(sp =>
+                new BasicConnectionProvider(Configuration["ConnectionString"]));
+            services.AddScoped(sp => sp.GetRequiredService<IContextFactory>().CreateContext());
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "TranslateSystemAPI", Version = "v1" });
@@ -37,6 +39,7 @@ namespace TranslateSystemAPI
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
+            RunMigrations(app);
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
@@ -54,6 +57,15 @@ namespace TranslateSystemAPI
             {
                 endpoints.MapControllers();
             });
+        }
+
+        private void RunMigrations(IApplicationBuilder app)
+        {
+            var contextFactory = app.ApplicationServices.GetService<IContextFactory>();
+            using var context = contextFactory?.CreateContext();
+            //todo add console log to migrations
+            var pendingMigrations = context?.Database.GetPendingMigrations().ToList();
+            context?.Database.Migrate();
         }
     }
 }

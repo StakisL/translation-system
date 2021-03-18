@@ -1,4 +1,6 @@
-﻿namespace TranslateSystem.Data
+﻿using System;
+
+namespace TranslateSystem.Data
 {
     public class TransferData
     {
@@ -8,5 +10,7 @@
         public CurrencyType SourceCurrencyType { get; set; }
         public CurrencyType DestinationCurrencyType { get; set; }
         public double AmountTransaction { get; set; }
+        public DateTime Date { get; set; }
+        public bool IsCancelled { get; set; }
     }
 }

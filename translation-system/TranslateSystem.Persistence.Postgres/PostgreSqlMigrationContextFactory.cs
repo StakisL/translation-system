@@ -10,7 +10,7 @@ namespace TranslateSystem.Persistence.Postgre
         public ApplicationContext CreateDbContext(string[] args)
         {
             var host = Environment.GetEnvironmentVariable("DEV_PGSQL_HOST") ?? "localhost";
-            var port = Environment.GetEnvironmentVariable("DEV_PGSQL_PORT") ?? "5434";
+            var port = Environment.GetEnvironmentVariable("DEV_PGSQL_PORT") ?? "5432";
             var username = Environment.GetEnvironmentVariable("DEV_PGSQL_USER") ?? "postgres";
             var password = Environment.GetEnvironmentVariable("DEV_PGSQL_PASSWORD");
 
