@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk.Web">
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
 
   <PropertyGroup>
     <TargetFramework>net5.0</TargetFramework>
@@ -11,8 +11,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\TranslateSystem.Data\TranslateSystem.Data.csproj" />
-    <ProjectReference Include="..\..\TranslateSystem.Persistence.Postgres\TranslateSystem.Persistence.Postgre.csproj" />
+    <ProjectReference Include="..\TranslateSystem.Data\TranslateSystem.Data.csproj" />
+    <ProjectReference Include="..\TranslateSystem.Persistence.Postgres\TranslateSystem.Persistence.Postgre.csproj" />
     <ProjectReference Include="..\TranslateSystem.Persistence\TranslateSystem.Persistence.csproj" />
   </ItemGroup>
 
