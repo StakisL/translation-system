@@ -6,6 +6,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
+using Serilog;
 using TranslateSystem.Persistence;
 using TranslateSystem.Persistence.Postgre;
 using TranslateSystem.Persistence.Settings;
@@ -24,7 +25,7 @@ namespace TranslateSystemAPI
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-
+            services.AddHttpClient();
             services.AddControllers();
             services.AddSingleton<IContextFactory, PostgreSqlContextFactory>();
             services.AddSingleton<IConnectionProvider, BasicConnectionProvider>(sp =>
@@ -65,7 +66,21 @@ namespace TranslateSystemAPI
             using var context = contextFactory?.CreateContext();
             //todo add console log to migrations
             var pendingMigrations = context?.Database.GetPendingMigrations().ToList();
+            if (pendingMigrations!.Any())
+            {
+                Log.Information($"Running {pendingMigrations.Count} DB migrations");
+                foreach (var migration in pendingMigrations)
+                {
+                    Log.Information($"\t{migration}");
+                }
+            }
+            else
+            {
+                Log.Information("No DB pending migrations found");
+            }
+
             context?.Database.Migrate();
+            Log.Information($"DB migration completed");
         }
     }
 }
