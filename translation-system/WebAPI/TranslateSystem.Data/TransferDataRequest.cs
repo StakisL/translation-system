@@ -2,7 +2,7 @@
 
 namespace TranslateSystem.Data
 {
-    public class TransferData
+    public class TransferDataRequest
     {
         public int Id { get; set; }
         public int SourceUserId { get; set; }

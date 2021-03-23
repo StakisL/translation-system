@@ -10,7 +10,8 @@ namespace TranslateSystem.Persistence
         
         public DbSet<User> Users { get; set; }
         public DbSet<Currency> Currencies { get; set; }
-        public DbSet<TransferData> TransferDatas { get; set; }
+        public DbSet<TransferDataRequest> TransferDatas { get; set; }
+        public DbSet<CurrentExchangeRateRequest> CurrentExchangeRateRequests { get; set; }
         public DbSet<AccountData> AccountDatas { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -20,7 +21,8 @@ namespace TranslateSystem.Persistence
             modelBuilder.ApplyConfiguration(new UserConfigurations());
             modelBuilder.ApplyConfiguration(new CurrencyConfiguration());
             modelBuilder.ApplyConfiguration(new AccountDataConfiguration());
-            modelBuilder.ApplyConfiguration(new TransferDataConfiguration());
+            modelBuilder.ApplyConfiguration(new TransferDataRequestConfiguration());
+            modelBuilder.ApplyConfiguration(new CurrentExchangeRateRequestConfiguration());
         }
     }
 }

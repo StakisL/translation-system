@@ -5,9 +5,9 @@ using TranslateSystem.Data;
 
 namespace TranslateSystem.Persistence.Configurations
 {
-    public class TransferDataConfiguration : IEntityTypeConfiguration<TransferData>
+    public class TransferDataRequestConfiguration : IEntityTypeConfiguration<TransferDataRequest>
     {
-        public void Configure(EntityTypeBuilder<TransferData> builder)
+        public void Configure(EntityTypeBuilder<TransferDataRequest> builder)
         {
             builder.ToTable("transfer_data");
             builder.HasKey(k => k.Id);

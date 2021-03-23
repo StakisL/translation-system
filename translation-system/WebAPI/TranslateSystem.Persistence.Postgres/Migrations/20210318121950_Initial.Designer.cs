@@ -76,7 +76,7 @@ namespace TranslateSystem.Persistence.Postgre.Migrations
                     b.ToTable("currency");
                 });
 
-            modelBuilder.Entity("TranslateSystem.Data.TransferData", b =>
+            modelBuilder.Entity("TranslateSystem.Data.TransferDataRequest", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -171,7 +171,7 @@ namespace TranslateSystem.Persistence.Postgre.Migrations
                     b.Navigation("User");
                 });
 
-            modelBuilder.Entity("TranslateSystem.Data.TransferData", b =>
+            modelBuilder.Entity("TranslateSystem.Data.TransferDataRequest", b =>
                 {
                     b.HasOne("TranslateSystem.Data.User", null)
                         .WithMany("Transfers")

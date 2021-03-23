@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 
 namespace TranslateSystem.Data
 {
@@ -10,6 +9,6 @@ namespace TranslateSystem.Data
         public string Email { get; set; }
         public string Password { get; set; }
         public AccountData AccountData { get; set; }
-        public ICollection<TransferData> Transfers { get; set; }
+        public ICollection<TransferDataRequest> Transfers { get; set; }
     }
 }
