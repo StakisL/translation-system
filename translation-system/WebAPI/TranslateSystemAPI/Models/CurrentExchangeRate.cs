@@ -6,7 +6,7 @@ namespace TranslateSystemAPI.Models
 {
     public class CurrentExchangeRate
     {
-        public string Base { get; set; }
+        public bool Success { get; set; }
 
         public DateTime Date { get; set; }
 

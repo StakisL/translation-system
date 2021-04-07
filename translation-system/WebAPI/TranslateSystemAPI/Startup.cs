@@ -30,6 +30,7 @@ namespace TranslateSystemAPI
             services.AddSingleton<IContextFactory, PostgreSqlContextFactory>();
             services.AddSingleton<IConnectionProvider, BasicConnectionProvider>(sp =>
                 new BasicConnectionProvider(Configuration["ConnectionString"]));
+
             services.AddScoped(sp => sp.GetRequiredService<IContextFactory>().CreateContext());
             services.AddSwaggerGen(c =>
             {
@@ -64,7 +65,6 @@ namespace TranslateSystemAPI
         {
             var contextFactory = app.ApplicationServices.GetService<IContextFactory>();
             using var context = contextFactory?.CreateContext();
-            //todo add console log to migrations
             var pendingMigrations = context?.Database.GetPendingMigrations().ToList();
             if (pendingMigrations!.Any())
             {
