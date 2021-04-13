@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Text;
@@ -36,27 +35,32 @@ namespace TranslateSystemAPI.Controllers
             {
                 var json = webClient.DownloadString(CreateDownloadLink());
                 var result = JsonConvert.DeserializeObject<CurrentExchangeRate>(json);
-                if (result.Success)
-                {
-                    var currencies = result.ExchangeRates.Select(item => new Currency() 
-                        {
-                            CurrencyType = item.Key.GetCurrencyType(), 
-                            LastUpdate = result.Date, 
-                            Ratio = item.Value
-                        }).ToList();
-
-                    await _applicationContext.AddAsync(new CurrentExchangeRateRequest()
-                    {
-                        Date = result.Date,
-                        Currencies = currencies
-                    });
-                    await _applicationContext.SaveChangesAsync();
-                }
+                await SaveCurrenciesInDb(result);
                 Log.Information($"Success load currency rates, {result}");
             }
             catch (Exception e)
             {
                 Log.Warning($"Current Exchange currency rate does not update", e.Message);
+            }
+        }
+
+        private async Task SaveCurrenciesInDb(CurrentExchangeRate exchangeRate)
+        {
+            if (exchangeRate.Success)
+            {
+                var currencies = exchangeRate.ExchangeRates.Select(item => new Currency()
+                {
+                    CurrencyType = item.Key.GetCurrencyType(),
+                    LastUpdate = exchangeRate.Date,
+                    Ratio = item.Value
+                }).ToList();
+
+                await _applicationContext.AddAsync(new CurrentExchangeRateRequest()
+                {
+                    Date = exchangeRate.Date,
+                    Currencies = currencies
+                });
+                await _applicationContext.SaveChangesAsync();
             }
         }
 
