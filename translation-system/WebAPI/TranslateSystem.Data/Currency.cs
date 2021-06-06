@@ -2,11 +2,11 @@
 
 namespace TranslateSystem.Data
 {
-    public enum CurrencyType : int
+    public enum CurrencyType
     {
         EUR, 
         USD, 
-        GPB, 
+        JPY, 
         RUB, 
         BTC
     }

@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Linq;
 using System.Net;
+using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Newtonsoft.Json;
 using Serilog;
@@ -18,6 +20,9 @@ namespace TranslateSystemAPI.Controllers
     [ApiController]
     public sealed class CurrencyRateGettingController : ControllerBase
     {
+        private static readonly HttpClient HttpClient = new();
+
+        private readonly string _downloadLink;
         private readonly IConfiguration _configuration;
         private readonly ApplicationContext _applicationContext;
 
@@ -25,22 +30,26 @@ namespace TranslateSystemAPI.Controllers
         {
             _configuration = configuration;
             _applicationContext = applicationContext;
+            _downloadLink = CreateDownloadLink();
         }
 
+        //todo Переделать контроллер на ожидание вводных параметров из Swagger, а не appsettings
         [HttpGet]
         public async Task GetCurrentExchangeCurrencyRate()
         {
-            using var webClient = new WebClient();
             try
             {
-                var json = webClient.DownloadString(CreateDownloadLink());
+                using var response = HttpClient.GetAsync(_downloadLink).Result;
+                var json = response.Content.ReadAsStringAsync().Result;
+
                 var result = JsonConvert.DeserializeObject<CurrentExchangeRate>(json);
                 await SaveCurrenciesInDb(result);
+
                 Log.Information($"Success load currency rates, {result}");
             }
             catch (Exception e)
             {
-                Log.Warning($"Current Exchange currency rate does not update", e.Message);
+                Log.Warning("Current Exchange currency rate does not update", e.Message);
             }
         }
 
@@ -57,9 +66,10 @@ namespace TranslateSystemAPI.Controllers
 
                 await _applicationContext.AddAsync(new CurrentExchangeRateRequest()
                 {
-                    Date = exchangeRate.Date,
+                    Date = DateTime.UtcNow,
                     Currencies = currencies
                 });
+
                 await _applicationContext.SaveChangesAsync();
             }
         }

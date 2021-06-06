@@ -13,7 +13,7 @@ namespace TranslateSystemAPI.Extensions
                 "RUB" => CurrencyType.RUB,
                 "EUR" => CurrencyType.EUR,
                 "BTC" => CurrencyType.BTC,
-                "GPB" => CurrencyType.GPB,
+                "JPY" => CurrencyType.JPY,
                 _ => throw new ArgumentOutOfRangeException(nameof(currency), currency, null)
             };
         }
