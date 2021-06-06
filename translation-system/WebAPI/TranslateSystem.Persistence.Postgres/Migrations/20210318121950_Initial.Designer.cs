@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using TranslateSystem.Persistence;
@@ -9,9 +10,10 @@ using TranslateSystem.Persistence;
 namespace TranslateSystem.Persistence.Postgre.Migrations
 {
     [DbContext(typeof(ApplicationContext))]
-    partial class ApplicationContextModelSnapshot : ModelSnapshot
+    [Migration("20210318121950_Initial")]
+    partial class Initial
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -74,7 +76,7 @@ namespace TranslateSystem.Persistence.Postgre.Migrations
                     b.ToTable("currency");
                 });
 
-            modelBuilder.Entity("TranslateSystem.Data.TransferData", b =>
+            modelBuilder.Entity("TranslateSystem.Data.TransferDataRequest", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -169,7 +171,7 @@ namespace TranslateSystem.Persistence.Postgre.Migrations
                     b.Navigation("User");
                 });
 
-            modelBuilder.Entity("TranslateSystem.Data.TransferData", b =>
+            modelBuilder.Entity("TranslateSystem.Data.TransferDataRequest", b =>
                 {
                     b.HasOne("TranslateSystem.Data.User", null)
                         .WithMany("Transfers")

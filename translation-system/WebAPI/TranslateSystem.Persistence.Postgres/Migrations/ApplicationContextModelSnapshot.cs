@@ -2,7 +2,6 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
-using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using TranslateSystem.Persistence;
@@ -10,10 +9,9 @@ using TranslateSystem.Persistence;
 namespace TranslateSystem.Persistence.Postgre.Migrations
 {
     [DbContext(typeof(ApplicationContext))]
-    [Migration("20210318121950_Initial")]
-    partial class Initial
+    partial class ApplicationContextModelSnapshot : ModelSnapshot
     {
-        protected override void BuildTargetModel(ModelBuilder modelBuilder)
+        protected override void BuildModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -64,6 +62,9 @@ namespace TranslateSystem.Persistence.Postgre.Migrations
                         .HasColumnType("text")
                         .HasColumnName("currency_type");
 
+                    b.Property<int?>("CurrentExchangeRateRequestId")
+                        .HasColumnType("integer");
+
                     b.Property<DateTime>("LastUpdate")
                         .HasColumnType("timestamp without time zone")
                         .HasColumnName("last_update");
@@ -73,10 +74,29 @@ namespace TranslateSystem.Persistence.Postgre.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("CurrentExchangeRateRequestId");
+
                     b.ToTable("currency");
                 });
 
-            modelBuilder.Entity("TranslateSystem.Data.TransferData", b =>
+            modelBuilder.Entity("TranslateSystem.Data.CurrentExchangeRateRequest", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer")
+                        .HasColumnName("id")
+                        .UseIdentityByDefaultColumn();
+
+                    b.Property<DateTime>("Date")
+                        .HasColumnType("timestamp without time zone")
+                        .HasColumnName("date");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("current_exchange_rate_request");
+                });
+
+            modelBuilder.Entity("TranslateSystem.Data.TransferDataRequest", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -171,11 +191,23 @@ namespace TranslateSystem.Persistence.Postgre.Migrations
                     b.Navigation("User");
                 });
 
-            modelBuilder.Entity("TranslateSystem.Data.TransferData", b =>
+            modelBuilder.Entity("TranslateSystem.Data.Currency", b =>
+                {
+                    b.HasOne("TranslateSystem.Data.CurrentExchangeRateRequest", null)
+                        .WithMany("Currencies")
+                        .HasForeignKey("CurrentExchangeRateRequestId");
+                });
+
+            modelBuilder.Entity("TranslateSystem.Data.TransferDataRequest", b =>
                 {
                     b.HasOne("TranslateSystem.Data.User", null)
                         .WithMany("Transfers")
                         .HasForeignKey("UserId");
+                });
+
+            modelBuilder.Entity("TranslateSystem.Data.CurrentExchangeRateRequest", b =>
+                {
+                    b.Navigation("Currencies");
                 });
 
             modelBuilder.Entity("TranslateSystem.Data.User", b =>

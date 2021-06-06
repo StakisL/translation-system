@@ -13,7 +13,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\WebAPI\TranslateSystem.Persistence\TranslateSystem.Persistence.csproj" />
+    <ProjectReference Include="..\TranslateSystem.Data\TranslateSystem.Data.csproj" />
+    <ProjectReference Include="..\TranslateSystem.Persistence\TranslateSystem.Persistence.csproj" />
   </ItemGroup>
 
 </Project>
