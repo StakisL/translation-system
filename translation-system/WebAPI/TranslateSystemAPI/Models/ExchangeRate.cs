@@ -4,7 +4,7 @@ using Newtonsoft.Json;
 
 namespace TranslateSystemAPI.Models
 {
-    public class CurrentExchangeRate
+    public class ExchangeRate
     {
         public bool Success { get; set; }
 
