@@ -68,7 +68,7 @@ namespace TranslateSystemAPI
             });
         }
 
-        private void RunMigrations(IApplicationBuilder app)
+        private static void RunMigrations(IApplicationBuilder app)
         {
             var contextFactory = app.ApplicationServices.GetService<IContextFactory>();
             using var context = contextFactory?.CreateContext();
@@ -106,13 +106,14 @@ namespace TranslateSystemAPI
             services.AddHostedService<SchedulerHostedService>();
         }
         
-        private ICollection<JobSchedule> SetJobSchedule()
+        private IEnumerable<JobSchedule> SetJobSchedule()
         {
             var configSection = Configuration.GetSection("Scheduler");
             var schedulerJobs = configSection.GetChildren()
                 .Select(cs => new JobSchedule(
                     jobType: cs.Key.CurrentJob(),
                     cronExpression: cs.Value)).ToList();
+            
             return schedulerJobs;
         }
     }

@@ -16,8 +16,7 @@ using TranslateSystemAPI.Models;
 
 namespace TranslateSystemAPI.Controllers
 {
-    [Route("api/[controller]")]
-    [ApiController]
+    [Obsolete, Route("api/[controller]"), ApiController]
     public sealed class ExchangeRateRequestController : ControllerBase
     {
         private static readonly HttpClient HttpClient = new();
