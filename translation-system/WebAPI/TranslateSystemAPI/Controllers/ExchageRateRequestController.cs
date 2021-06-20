@@ -18,7 +18,7 @@ namespace TranslateSystemAPI.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public sealed class CurrencyRateGettingController : ControllerBase
+    public sealed class ExchangeRateRequestController : ControllerBase
     {
         private static readonly HttpClient HttpClient = new();
 
@@ -26,7 +26,7 @@ namespace TranslateSystemAPI.Controllers
         private readonly IConfiguration _configuration;
         private readonly ApplicationContext _applicationContext;
 
-        public CurrencyRateGettingController(IConfiguration configuration, ApplicationContext applicationContext)
+        public ExchangeRateRequestController(IConfiguration configuration, ApplicationContext applicationContext)
         {
             _configuration = configuration;
             _applicationContext = applicationContext;
@@ -42,7 +42,7 @@ namespace TranslateSystemAPI.Controllers
                 using var response = HttpClient.GetAsync(_downloadLink).Result;
                 var json = response.Content.ReadAsStringAsync().Result;
 
-                var result = JsonConvert.DeserializeObject<CurrentExchangeRate>(json);
+                var result = JsonConvert.DeserializeObject<ExchangeRate>(json);
                 await SaveCurrenciesInDb(result);
 
                 Log.Information($"Success load currency rates, {result}");
@@ -53,7 +53,7 @@ namespace TranslateSystemAPI.Controllers
             }
         }
 
-        private async Task SaveCurrenciesInDb(CurrentExchangeRate exchangeRate)
+        private async Task SaveCurrenciesInDb(ExchangeRate exchangeRate)
         {
             if (exchangeRate.Success)
             {
