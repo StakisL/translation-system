@@ -17,7 +17,7 @@ namespace TranslateSystem.Persistence.Postgre
             var builder = new NpgsqlConnectionStringBuilder()
             {
                 Host = host,
-                Port = Int32.Parse(port),
+                Port = int.Parse(port),
                 Username = username,
                 Password = password,
                 Database = "translation-system"

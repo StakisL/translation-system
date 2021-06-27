@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
 using System.Text;
@@ -46,7 +47,7 @@ namespace TranslateSystemAPI.Services.Implementations
             }
             catch (Exception e)
             {
-                Log.Error("Current Exchange currency rate does not update", e.Message);
+                Log.Error($"Current Exchange currency rate does not update, {e.Message}");
             }
         }
         
@@ -54,24 +55,51 @@ namespace TranslateSystemAPI.Services.Implementations
         {
             if (exchangeRate.Success)
             {
-                var currencies = exchangeRate.ExchangeRates.Select(item => new Currency()
-                {
-                    CurrencyType = item.Key.GetCurrencyType(),
-                    LastUpdate = exchangeRate.Date,
-                    Ratio = item.Value
-                }).ToList();
-
+                var currencies = AddOrUpdateCurrency(exchangeRate);
+                
                 await _applicationContext.AddAsync(new CurrentExchangeRateRequest()
                 {
                     Date = DateTime.UtcNow,
                     Currencies = currencies
                 });
-
                 await _applicationContext.SaveChangesAsync();
             }
         }
 
-        //Todo избавиться от этого метода.
+        private ICollection<Currency> AddOrUpdateCurrency(ExchangeRate exchangeRate)
+        {
+            //TODO Разобраться и придумать нормальную реализацию AddOrUpdate.
+            //todo Словарь как хранилище обновленных курсов, тоже явно не лучший вариант. (Переделать парсер)
+            var currencies = new LinkedList<Currency>();
+            foreach (var key in exchangeRate.ExchangeRates.Keys)
+            {
+                var result = _applicationContext.Currencies.FirstOrDefault(
+                    c => c.CurrencyType == key.GetCurrencyType());
+                    
+                if (result == null)
+                {
+                    var currency = new Currency
+                    {
+                        LastUpdate = exchangeRate.Date,
+                        CurrencyType = key.GetCurrencyType(),
+                        Ratio = exchangeRate.ExchangeRates[key]
+                    };
+                        
+                    currencies.AddFirst(currency);
+                }
+                else
+                {
+                    result.LastUpdate = exchangeRate.Date;
+                    result.Ratio = exchangeRate.ExchangeRates[key];
+
+                    currencies.AddFirst(result);
+                    _applicationContext.Remove(result);
+                }
+            }
+
+            return currencies;
+        }
+        
         private string CreateDownloadLink()
         {
             var currencies = _configuration.GetSection("Currencies").AsEnumerable();

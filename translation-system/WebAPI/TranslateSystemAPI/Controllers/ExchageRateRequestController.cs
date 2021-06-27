@@ -1,97 +1,20 @@
-﻿using System;
-using System.Linq;
-using System.Net;
-using System.Net.Http;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Configuration;
-using Newtonsoft.Json;
-using Serilog;
-using TranslateSystem.Data;
-using TranslateSystem.Persistence;
-using TranslateSystemAPI.Extensions;
-using TranslateSystemAPI.Models;
+using TranslateSystemAPI.Services;
 
 namespace TranslateSystemAPI.Controllers
 {
-    [Obsolete, Route("api/[controller]"), ApiController]
+    [Route("api/[controller]"), ApiController]
     public sealed class ExchangeRateRequestController : ControllerBase
     {
-        private static readonly HttpClient HttpClient = new();
+        private readonly IExchangeRateService _exchangeRateService;
 
-        private readonly string _downloadLink;
-        private readonly IConfiguration _configuration;
-        private readonly ApplicationContext _applicationContext;
-
-        public ExchangeRateRequestController(IConfiguration configuration, ApplicationContext applicationContext)
+        public ExchangeRateRequestController(IExchangeRateService exchangeRateService)
         {
-            _configuration = configuration;
-            _applicationContext = applicationContext;
-            _downloadLink = CreateDownloadLink();
+            _exchangeRateService = exchangeRateService;
         }
 
-        //todo Переделать контроллер на ожидание вводных параметров из Swagger, а не appsettings
         [HttpGet]
-        public async Task GetCurrentExchangeCurrencyRate()
-        {
-            try
-            {
-                using var response = HttpClient.GetAsync(_downloadLink).Result;
-                var json = response.Content.ReadAsStringAsync().Result;
-
-                var result = JsonConvert.DeserializeObject<ExchangeRate>(json);
-                await SaveCurrenciesInDb(result);
-
-                Log.Information($"Success load currency rates, {result}");
-            }
-            catch (Exception e)
-            {
-                Log.Warning("Current Exchange currency rate does not update", e.Message);
-            }
-        }
-
-        private async Task SaveCurrenciesInDb(ExchangeRate exchangeRate)
-        {
-            if (exchangeRate.Success)
-            {
-                var currencies = exchangeRate.ExchangeRates.Select(item => new Currency()
-                {
-                    CurrencyType = item.Key.GetCurrencyType(),
-                    LastUpdate = exchangeRate.Date,
-                    Ratio = item.Value
-                }).ToList();
-
-                await _applicationContext.AddAsync(new CurrentExchangeRateRequest()
-                {
-                    Date = DateTime.UtcNow,
-                    Currencies = currencies
-                });
-
-                await _applicationContext.SaveChangesAsync();
-            }
-        }
-
-        private string CreateDownloadLink()
-        {
-            var currencies = _configuration.GetSection("Currencies").AsEnumerable();
-
-            var downloadLink = new StringBuilder()
-                .Append("http://api.exchangeratesapi.io/v1/latest?access_key=")
-                .Append($"{_configuration["ExchangeRateAPIKey"]}")
-                .Append("&symbols=");
-
-            foreach (var currency in currencies)
-            {
-                if (currency.Value != null)
-                {
-                    downloadLink.Append($"{currency.Value},");
-                }
-            }
-            downloadLink.Remove(downloadLink.Length - 1, 1);
-
-            return downloadLink.ToString();
-        }
+        public async Task GetCurrentExchangeCurrencyRate() => await _exchangeRateService.ExchangeRateRequest();
     }
 }

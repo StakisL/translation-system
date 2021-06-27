@@ -14,12 +14,13 @@ namespace TranslateSystem.Persistence.Postgre
             _dbContextOptions = BuildOptions(connectionProvider);
         }
 
-        public ApplicationContext CreateContext() => new ApplicationContext(_dbContextOptions);
+        public ApplicationContext CreateContext() => new (_dbContextOptions);
 
         public DbContextOptions BuildOptions(IConnectionProvider connectionProvider)
         {
             var builder = new DbContextOptionsBuilder();
             builder.UseNpgsql(connectionProvider.GetConnection(), Configure);
+            
             return builder.Options;
         }
 
