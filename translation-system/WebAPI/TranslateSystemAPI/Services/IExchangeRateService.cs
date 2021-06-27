@@ -1,7 +1,9 @@
-﻿namespace TranslateSystemAPI.Services
+﻿using System.Threading.Tasks;
+
+namespace TranslateSystemAPI.Services
 {
-    public class IExchangeRateService
-    {
-        
+    public interface IExchangeRateService
+    { 
+        Task ExchangeRateRequest();
     }
 }

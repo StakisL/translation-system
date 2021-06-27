@@ -16,6 +16,8 @@ using TranslateSystem.Persistence.Postgre;
 using TranslateSystem.Persistence.Settings;
 using TranslateSystemAPI.Scheduler;
 using TranslateSystemAPI.Scheduler.Jobs;
+using TranslateSystemAPI.Services;
+using TranslateSystemAPI.Services.Implementations;
 
 namespace TranslateSystemAPI
 {
@@ -37,6 +39,9 @@ namespace TranslateSystemAPI
                 new BasicConnectionProvider(Configuration["ConnectionString"]));
 
             services.AddScoped(sp => sp.GetRequiredService<IContextFactory>().CreateContext());
+            services.AddSingleton<IExchangeRateService, ExchangeRateService>();
+            
+            services.AddHttpClient<IExchangeRateService, ExchangeRateService>();
             
             ConfigureScheduler(services);
 
@@ -57,9 +62,7 @@ namespace TranslateSystemAPI
             }
 
             app.UseHttpsRedirection();
-
             app.UseRouting();
-
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
@@ -112,7 +115,7 @@ namespace TranslateSystemAPI
             var schedulerJobs = configSection.GetChildren()
                 .Select(cs => new JobSchedule(
                     jobType: cs.Key.CurrentJob(),
-                    cronExpression: cs.Value)).ToList();
+                    cronExpression: cs.Value));
             
             return schedulerJobs;
         }
