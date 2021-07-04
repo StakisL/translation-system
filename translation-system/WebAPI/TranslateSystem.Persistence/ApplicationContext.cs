@@ -10,9 +10,9 @@ namespace TranslateSystem.Persistence
         
         public DbSet<User> Users { get; set; }
         public DbSet<Currency> Currencies { get; set; }
-        public DbSet<TransferDataRequest> TransferDatas { get; set; }
+        public DbSet<TransferDataRequest> TransferData { get; set; }
         public DbSet<CurrentExchangeRateRequest> CurrentExchangeRateRequests { get; set; }
-        public DbSet<AccountData> AccountDatas { get; set; }
+        public DbSet<AccountData> AccountData { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

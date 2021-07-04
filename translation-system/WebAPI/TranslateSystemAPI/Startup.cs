@@ -59,7 +59,7 @@ namespace TranslateSystemAPI
             });
         }
 
-        private void RunMigrations(IApplicationBuilder app)
+        private static void RunMigrations(IApplicationBuilder app)
         {
             var contextFactory = app.ApplicationServices.GetService<IContextFactory>();
             using var context = contextFactory?.CreateContext();
